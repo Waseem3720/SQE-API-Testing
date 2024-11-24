@@ -1,11 +1,29 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <groupId>SQEAssignment4</groupId>
   <artifactId>SQEAssignment4</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging> <!-- Ensure it's a jar for Gatling simulations -->
 
   <dependencies>
-    <!-- RestAssured Dependency -->
+    <!-- Gatling Core Dependency -->
+    <dependency>
+      <groupId>io.gatling</groupId>
+      <artifactId>gatling-core</artifactId>
+      <version>3.9.5</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Gatling HTTP Dependency -->
+    <dependency>
+      <groupId>io.gatling</groupId>
+      <artifactId>gatling-http</artifactId>
+      <version>3.9.5</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- RestAssured Dependency for API testing -->
     <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
@@ -13,7 +31,7 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- TestNG Dependency -->
+    <!-- TestNG Dependency for testing framework -->
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
@@ -21,7 +39,7 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- JSON Simple Dependency -->
+    <!-- JSON Simple Dependency for handling JSON -->
     <dependency>
       <groupId>com.googlecode.json-simple</groupId>
       <artifactId>json-simple</artifactId>
@@ -35,13 +53,37 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.1.2</version>
+        <version>3.9.9</version>
         <configuration>
           <suiteXmlFiles>
             <suiteXmlFile>testng.xml</suiteXmlFile>
           </suiteXmlFiles>
         </configuration>
       </plugin>
+
+      <!-- Gatling Maven Plugin to run Gatling simulations -->
+      <plugin>
+        <groupId>io.gatling</groupId>
+        <artifactId>gatling-maven-plugin</artifactId>
+        <version>3.9.5</version>
+        <executions>
+          <execution>
+            <phase>verify</phase> <!-- Change phase to 'verify' so Gatling runs after tests -->
+            <goals>
+              <goal>execute</goal> <!-- Goal to execute the Gatling simulation -->
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
+
 </project>
+
+
+
+
+
+
+
+  
